@@ -1,0 +1,138 @@
+create database performance;
+use performance;
+select * from emper;
+
+-- average performance score by department
+SELECT Department, AVG(Performance_Score) AS Avg_Performance
+FROM emper
+GROUP BY Department;
+
+--  Correlation between Overtime and Performance
+SELECT Overtime_Hours, AVG(Performance_Score) AS Avg_Performance
+FROM emper
+GROUP BY Overtime_Hours
+ORDER BY Overtime_Hours;
+
+-- Top 5 departments by average employee satisfaction
+SELECT Department, 
+ROUND(AVG(Employee_Satisfaction_Score), 2) AS Avg_Satisfaction
+FROM emper
+GROUP BY Department
+ORDER BY Avg_Satisfaction DESC
+LIMIT 5;
+
+--  Do training hours impact performance
+SELECT Training_Hours,
+ROUND(AVG(Performance_Score), 2) AS Avg_Performance
+FROM emper
+GROUP BY Training_Hours
+ORDER BY Training_Hours;
+
+-- employees resigned from each department
+SELECT Department, 
+COUNT(*) AS Total, 
+SUM(CASE WHEN Resigned = 'True' THEN 1 ELSE 0 END) AS Resigned_Employees
+FROM emper
+GROUP BY Department;
+
+-- lowest satisfaction score by dept
+SELECT Department, AVG(Employee_Satisfaction_Score) AS Avg_Satisfaction
+FROM emper
+GROUP BY Department
+ORDER BY Avg_Satisfaction ASC
+LIMIT 5;
+
+-- Employees with performance score 5 and over 5 years experience
+SELECT * FROM emper
+WHERE Performance_Score = 5 AND Years_At_Company > 5;
+
+-- Satisfaction vs Performance
+SELECT Performance_Score, ROUND(AVG(Employee_Satisfaction_Score), 2) AS Avg_Satisfaction
+FROM emper
+GROUP BY Performance_Score;
+
+-- Salary & Compensation Analysis
+-- Average salary by department
+SELECT Department, AVG(Monthly_Salary) AS Avg_Salary
+FROM emper
+GROUP BY Department;
+
+-- Top 3 paid job titles
+SELECT Job_Title, AVG(Monthly_Salary) AS Avg_Salary
+FROM emper
+GROUP BY Job_Title
+ORDER BY Avg_Salary DESC
+LIMIT 3;
+
+-- Salary distribution by education level
+SELECT Education_Level, MIN(Monthly_Salary) AS Min_Salary, MAX(Monthly_Salary) AS Max_Salary
+FROM emper
+GROUP BY Education_Level;
+
+-- Total salary expense per department
+SELECT Department, SUM(Monthly_Salary) AS Total_Expense
+FROM emper
+GROUP BY Department;
+
+-- Correlation between salary and performance
+SELECT Performance_Score, AVG(Monthly_Salary) AS Avg_Salary
+FROM emper
+GROUP BY Performance_Score;
+
+-- Resignation by gender
+SELECT Gender, 
+       COUNT(*) AS Total, 
+       SUM(CASE WHEN Resigned = 'True' THEN 1 ELSE 0 END) AS Resigned
+FROM emper
+GROUP BY Gender;
+
+-- Average projects handled by department
+SELECT Department, AVG(Projects_Handled) AS Avg_Projects
+FROM emper
+GROUP BY Department;
+
+-- Departments with highest overtime
+SELECT Department, AVG(Overtime_Hours) AS Avg_Overtime
+FROM emper
+GROUP BY Department
+ORDER BY Avg_Overtime DESC;
+
+-- Average work hours per week by job title
+SELECT Job_Title, AVG(Work_Hours_Per_Week) AS Avg_Hours
+FROM emper
+GROUP BY Job_Title;
+
+-- Employees with high sick days and low performance
+SELECT * FROM emper
+WHERE Sick_Days > 10 AND Performance_Score <= 2;
+
+-- Gender distribution by department
+SELECT Department, Gender, COUNT(*) AS Count
+FROM emper
+GROUP BY Department, Gender
+order by count desc ;
+
+-- Age group distribution
+SELECT CASE 
+           WHEN Age < 30 THEN '<30'
+           WHEN Age BETWEEN 30 AND 45 THEN '30-45'
+           ELSE '>45'
+       END AS Age_Group,
+       COUNT(*) AS Count
+FROM emper
+GROUP BY Age_Group;
+
+-- Average performance by education level
+SELECT Education_Level, AVG(Performance_Score) AS Avg_Performance
+FROM emper
+GROUP BY Education_Level;
+-- avg salary by gender
+SELECT Gender, AVG(Monthly_Salary) AS Avg_Salary
+FROM emper
+GROUP BY Gender;
+
+-- Departments with highest team sizes
+SELECT Department, AVG(Team_Size) AS Avg_Team_Size
+FROM emper
+GROUP BY Department
+ORDER BY Avg_Team_Size DESC;
