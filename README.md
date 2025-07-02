@@ -5,11 +5,14 @@ This project analyzes employee performance data (100,000+ records) using SQL and
 
 ## 📁 Project Structure
 
-SQLPROJECT/  
-├── performance.csv  
-├── employee_analysis.sql.txt  
-├── employee_analysis_vizualization.py  
-└── README.md
+SQLPROJECT
+├── data
+│ └── performance.csv # Raw dataset from kaggle (100k+ records)
+├── sql
+│ └── employee_analysis.sql.txt # 25+ SQL queries for insights
+├── python
+│ └── employee_analysis_visualization.py # Python script for data visualization
+├── README.md # Project overview and instructions
 
 
 ```
